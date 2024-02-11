@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 {
-  home.stateVersion = "22.05";
+  home.stateVersion = "23.05";
   
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -8,39 +8,64 @@
   nixpkgs.overlays = [];
 
   home.packages = with pkgs; [
-    gnumake
-    # haskell.compiler.ghc8107
-    # haskell.packages.ghc8107.cabal-install
-    # haskell.packages.ghc8107.haskell-language-server
-    # stack
-    # hlint
-    fstar
-    z3
-    htop
+    wabt
+    sbcl
+    netcoredbg
+    nodejs
+    purescript
+    rebar3
+    lfe
+    erlang
+    erlang-ls
+    just
+    racket
+    ocaml
+    ocamlformat
+    ocamlPackages.dune_3
+    opam
+    ocamlPackages.ocaml-lsp
+    coreutils
     ispell
+    gnumake
+    htop
     cask
     wget
-    sqls
-    plantuml
-    sbcl
-    # swiProlog
     gnupg
     gnutls
-    dotnet-sdk
-    # netcoredbg
+    # dotnet-sdk
+    dotnet-sdk_8
+    mono
     git-crypt
     rnix-lsp
     neofetch
-    nix-index
-    ocaml
-    opam
-    dune_2
-    ocamlPackages.ocaml-lsp
-    ocamlPackages.ocamlbuild
-    niv
-    gcc
+    millet
+    polyml
+    gnumake
+    buf
+    # dotnetCorePackages
+    protobuf
+    vault
+    # C/C++
+    # clang
+    # clang-tools
+    ## LSP std
+    # llvmPackages_latest.libstdcxxClang
+    ## stdlib for cpp
+    # llvmPackages_latest.libcxx
+    # Vulkan
+    #vulkan-headers
+    #vulkan-loader
+    #glm
+    #glslang
+    #glfw
+    #SML
+    millet
+    polyml
+    mlton # required by smlfmt
+    smlfmt
+    # pkgs.gcc
+    # pkgs.glibc
   ] ++ lib.optionals stdenv.isDarwin [
-    # m-cli
   ];
 
   programs.git = {
@@ -63,10 +88,4 @@
     '';
   };
 
-  # services.gpg-agent = {
-  #   enable = true;
-  #   defaultCacheTtl = 1800;
-  #   enableSshSupport = true;
-  #   sshKeys = ["9AA3054F8732794A8B33510B5B9E5F9D7211E7B1"];
-  # };
 }
