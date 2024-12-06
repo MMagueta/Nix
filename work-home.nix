@@ -28,8 +28,8 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    drawio
-    insomnia
+    # drawio
+    # insomnia
     unzip
     zip
     buf
@@ -61,8 +61,8 @@
     git
     terminator
     jetbrains.rider
-    jetbrains.idea-community
-    jdk11
+    # jetbrains.idea-community
+    # jdk11
     # kubectl
     # awscli2
     nil # Nix LSP
@@ -81,10 +81,6 @@
   };
 
   programs.home-manager.enable = true;
-
-  # programs.alacritty = {
-  #   enable = true;
-  # };
 
   programs.git = {
     enable = true;

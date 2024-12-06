@@ -28,6 +28,8 @@
   
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    # abcl
+    meslo-lgs-nf
     # nyxt
     # rebar3
     # erlang
@@ -36,7 +38,7 @@
     # ecl
     # nodejs
     zip
-    libreoffice
+    # libreoffice
     # ocaml
     # ocamlformat
     # ocamlPackages.dune_3
@@ -45,8 +47,6 @@
     # ocamlPackages.ocaml-lsp
     # ocamlPackages.menhir
     # ocamlPackages.utop
-    steam-tui
-    steamcmd
     # OpenGL
     # libGL libGLU glew freeglut glxinfo
     # postman
@@ -56,7 +56,7 @@
     # clojure
     # clojure-lsp
     obs-studio
-    spotify
+    # spotify
     signal-desktop
     # fstar
     # z3
@@ -69,7 +69,7 @@
     # clang-tools
     # llvmPackages_latest.libstdcxxClang
     # llvmPackages_latest.libcxx
-    swiProlog
+    # swiProlog
     # feh
     htop
     # ocaml
@@ -99,15 +99,17 @@
     emacs-all-the-icons-fonts
     git
     jetbrains.rider
+    jetbrains.clion
     terminator
     # sqls
     # postgresql
-    rosegarden
-    jack2
-    qjackctl
+    # rosegarden
+    # jack2
+    # qjackctl
     nil # Nix LSP
     thunderbird
     zulip
+    monaspace
   ];
 
   # programs.waybar.enable = true;
@@ -125,10 +127,6 @@
   };
 
   programs.home-manager.enable = true;
-
-  # programs.alacritty = {
-  #   enable = true;
-  # };
 
   programs.git = {
     enable = true;

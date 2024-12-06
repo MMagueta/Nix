@@ -1,10 +1,4 @@
 { config, pkgs, ... }:
-let
-  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-  # hyprland = (import flake-compat {
-  #   src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-  # }).defaultNix;
-in
 {
   imports =
     [
@@ -38,7 +32,7 @@ in
 
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
-  hardware.graphics.enable = true; # Mesa OpenGL
+  # hardware.graphics.enable = true; # Mesa OpenGL
   # hardware.opengl.driSupport = true; # Vulkan
 
   virtualisation.docker.enable = true;
@@ -84,12 +78,6 @@ in
   fonts.packages = with pkgs; [
     cascadia-code
   ];
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
 
   environment.systemPackages = with pkgs; [
   	gnomeExtensions.dash-to-dock
