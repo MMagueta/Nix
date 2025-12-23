@@ -1,6 +1,16 @@
 { config, pkgs, ... }:
-{
+let
+# emacs-overlay = import (fetchTarball {
+    # url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    # sha256 = "1jppksrfvbk5ypiqdz4cddxdl8z6zyzdb2srq8fcffr327ld5jj2";
+# });
 
+emacsNative = pkgs.emacs30.override {
+    withNativeCompilation = true;
+};
+
+in {
+  /*
   programs.vscode = {
     enable = true;
     package = pkgs.vscode-fhs;
@@ -8,26 +18,31 @@
       ms-vsliveshare.vsliveshare
     ];
   };
-
+  */
   manual.manpages.enable = false;
 
   home = {
-    stateVersion = "23.05";
+    stateVersion = "24.11";
     username = "mmagueta";
     homeDirectory = "/home/mmagueta";
     sessionVariables = {
-      DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
+      # DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
       # LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
     };
   };
 
-  services.udiskie = {
-    enable = true;
-    automount = true;
-  };
+  # services.udiskie = {
+  #   enable = true;
+  #   automount = true;
+  # };
   
-  # Packages that should be installed to the user profile.
+  # # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    rofi
+    prismlauncher
+    sqlite
+    pgformatter
+    fastfetch
     # abcl
     meslo-lgs-nf
     # nyxt
@@ -53,10 +68,11 @@
     ispell
     # racket-minimal
     # jdk16
-    # clojure
-    # clojure-lsp
+    clojure
+    clojure-lsp
+    openjdk
     obs-studio
-    # spotify
+    spotify
     signal-desktop
     # fstar
     # z3
@@ -91,25 +107,30 @@
     # plantuml
     gnutls
     fastfetch
-    netcoredbg
-    dotnet-sdk_8
-    icu # FSAutocomplete dependency
+    # netcoredbg
+    # dotnet-sdk_8
+    # icu # FSAutocomplete dependency
     # magemacs
-    emacs
+    # emacs
+    emacsNative
     emacs-all-the-icons-fonts
     git
-    jetbrains.rider
-    jetbrains.clion
+    # jetbrains.rider
+    # jetbrains.clion
+    alacritty
     terminator
-    # sqls
-    # postgresql
+    menulibre
+    sqls
+    postgresql_18
     # rosegarden
     # jack2
     # qjackctl
     nil # Nix LSP
     thunderbird
-    zulip
-    monaspace
+    # zulip
+    # supabase-cli
+    # awscli2
+    slack
   ];
 
   # programs.waybar.enable = true;

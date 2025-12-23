@@ -7,14 +7,20 @@
   
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  #boot.initrd.secrets = {
+  #  "/crypto_keyfile.bin" = null;
+  #};
 
   programs.mosh.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
 
   networking = {
     hostName = "nixos";
@@ -40,7 +46,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
-  # services.xserver.windowManager.exwm.enable = true;
+  
   # services.xserver.windowManager.stumpwm.enable = true;
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
@@ -59,6 +65,11 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+
+  services.ollama = {
+    enable = true;
+    loadModels = [ "sqlcoder:7b" ];
   };
 
   programs.zsh.enable = true;
@@ -86,5 +97,5 @@
 
   system.copySystemConfiguration = false;
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "25.05";
 }
