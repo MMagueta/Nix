@@ -38,9 +38,15 @@ in {
   
   # # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    rofi
-    prismlauncher
-    sqlite
+    nsxiv
+    libreoffice
+    amdgpu_top
+    direnv
+    claude-code
+    vlc
+    # rofi
+    # prismlauncher
+    # sqlite
     pgformatter
     fastfetch
     # abcl
@@ -68,9 +74,9 @@ in {
     ispell
     # racket-minimal
     # jdk16
-    clojure
-    clojure-lsp
-    openjdk
+    # clojure
+    # clojure-lsp
+    # openjdk
     obs-studio
     spotify
     signal-desktop
@@ -117,7 +123,7 @@ in {
     git
     # jetbrains.rider
     # jetbrains.clion
-    alacritty
+    # alacritty
     terminator
     menulibre
     sqls
@@ -137,7 +143,7 @@ in {
 
   programs.zsh = {
     enable = true;
-    initExtra = ''
+    initContent = ''
       export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
     '';
     oh-my-zsh = {
@@ -149,25 +155,32 @@ in {
 
   programs.home-manager.enable = true;
 
+  # Set terminator as default terminal
+  dconf.settings = {
+    "org/gnome/desktop/applications/terminal" = {
+      exec = "terminator";
+      exec-arg = "-x";
+    };
+  };
+
+  # Override GNOME Console to use Terminator (for Nautilus "Open in Terminal")
+  xdg.desktopEntries."org.gnome.Console" = {
+    name = "Console";
+    exec = "terminator";
+    icon = "org.gnome.Console";
+    type = "Application";
+    categories = [ "System" "TerminalEmulator" "Utility" "GTK" "GNOME" ];
+    terminal = false;
+  };
+
   programs.git = {
     enable = true;
-    userName = "Marcos Magueta";
-    userEmail = "maguetamarcos@gmail.com";
     ignores = [ "result" ];
-    delta = {
-      enable = true;
-      options = {
-        features = "side-by-side line-numbers decorations";
-        delta = {
-          navigate = true;
-        };
-        line-numbers = {
-          line-numbers-minus-style = 124;
-          line-numbers-plus-style = 28;
-        };
+    settings = {
+      user = {
+        name = "Marcos Magueta";
+        email = "maguetamarcos@gmail.com";
       };
-    };
-    extraConfig = {
       rerere.enabled = true;
       merge = {
         conflictstyle = "diff3";
@@ -175,6 +188,21 @@ in {
     };
     lfs = {
       enable = true;
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "side-by-side line-numbers decorations";
+      delta = {
+        navigate = true;
+      };
+      line-numbers = {
+        line-numbers-minus-style = 124;
+        line-numbers-plus-style = 28;
+      };
     };
   };
 
@@ -187,7 +215,7 @@ in {
     defaultCacheTtlSsh = 34560000;
     maxCacheTtl = 34560000;
     maxCacheTtlSsh = 34560000;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
     sshKeys = [ "9AA3054F8732794A8B33510B5B9E5F9D7211E7B1" ];
   };
 }
