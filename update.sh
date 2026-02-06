@@ -1,6 +1,6 @@
 #!/bin/sh
 
 set -eux
-sudo nix build .#darwinConfigurations.MacMini.system -L
+sudo launchctl start org.nixos.nix-daemon
+nix build .#darwinConfigurations.MacBookPro.system -L
 sudo ./result/sw/bin/darwin-rebuild switch --flake .
-sudo nix-collect-garbage -d

@@ -12,7 +12,7 @@
   home.packages = with pkgs; [
     opencode
     ffmpeg
-    dotnet-sdk_10
+    dotnet-sdk_8
     emacsPackages.vterm
     cmake
     libtool

@@ -1,20 +1,24 @@
 { pkgs, lib, ... }:
 {
 
-  nix.settings.substituters = [
-    "https://cache.nixos.org/"
-  ];
-  # nix.binaryCachePublicKeys = [
-  #   "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  # ];
-  nix.settings.trusted-users = [
-    "@admin"
-  ];
-  nix.configureBuildUsers = true;
+  nix.settings = {
+    trusted-users = [
+      "@admin"
+    ];
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
+  };
+
 
   environment.variables = {
-    DOTNET_ROOT="${pkgs.dotnet-sdk_8}";
-    LD_LIBRARY_PATH="${lib.makeLibraryPath [pkgs.glfw pkgs.vulkan-headers pkgs.glm pkgs.llvmPackages_latest.libstdcxxClang]}";
+    DOTNET_ROOT="${pkgs.dotnet-sdk_10}/share/dotnet";
+    PATH="$PATH:/Users/mmagueta/.dotnet/tools/";
   };
 
   nix.extraOptions = ''
@@ -25,20 +29,16 @@
     extra-platforms = x86_64-darwin
   '';
 
+  system.primaryUser = "mmagueta";
+
   programs.zsh.enable = true;
 
-  environment.shellAliases = {
-  };
+  environment.shellAliases = {};
   
-  services.nix-daemon.enable = true;
   services.nix-daemon.enableSocketListener = true;
   environment.systemPackages = with pkgs; [];
 
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
-
-  programs.nix-index.enable = true;
-
-  system.keyboard.enableKeyMapping = true;
-  system.keyboard.remapCapsLockToControl = true;
+  system.stateVersion = 5;
 }
