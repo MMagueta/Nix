@@ -1,11 +1,11 @@
 { config, pkgs, lib, self, ... }:
 {
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
   
   home.homeDirectory = lib.mkForce /Users/mmagueta;
   
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  # programs.direnv.enable = true;
+  # programs.direnv.nix-direnv.enable = true;
 
   nixpkgs.overlays = [ ];
 
@@ -28,7 +28,7 @@
     rust-analyzer
     clang
     # clang-tools
-    # sbcl
+    sbcl
     podman
     # aider-chat-full
     # texliveFull
@@ -43,7 +43,7 @@
     # cargo
     # rustc
     # rust-analyzer
-    # swi-prolog
+    swi-prolog
     pgformatter
     postgresql
     sqls
@@ -53,6 +53,7 @@
     # ispell
     # wget
     git
+    gh
     # plantuml
     gnupg
     gpg-tui
@@ -86,6 +87,12 @@
       user = {
         name = "Marcos Magueta";
         email = "maguetamarcos@gmail.com";
+      };
+      sendemail = {
+        smtpEncryption = "tls";
+        smtpServer = "smtp.gmail.com";
+        smtpServerPort = 587;
+        smtpUser = "maguetamarcos@gmail.com";
       };
     };
     signing = {

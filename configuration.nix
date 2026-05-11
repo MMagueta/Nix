@@ -18,6 +18,7 @@
 
   environment.variables = {
     DOTNET_ROOT="${pkgs.dotnet-sdk_10}/share/dotnet";
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="1";
     PATH="$PATH:/Users/mmagueta/.dotnet/tools/";
   };
 
